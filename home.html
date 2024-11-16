@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصفحة الرئيسية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* الأنماط العامة */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f5dc, #f0f0f0);
+        }
+        
+        /* تحديث أنماط القائمة العلوية */
+        .navbar {
+            background: linear-gradient(45deg, #1a4a73, #336699);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1000;
+        }
+        
+        .navbar div {
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+        }
+        
+        .navbar div:hover {
+            opacity: 0.8;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+        }
+        
+        /* تحديث أنماط المحتوى الرئيسي */
+        .content {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            padding: 20px;
+            gap: 20px;
+            margin-bottom: 80px;
+        }
+        
+        /* تحديث أنماط الشريط الجانبي */
+        .sidebar {
+            order: -1;
+            width: 200px;
+            background: linear-gradient(180deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            height: calc(100vh - 150px);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .sidebar-box {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            height: 100px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .main-content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            height: calc(100vh - 150px);
+            overflow-y: auto;
+        }
+        
+        /* تحديث أنماط الفوتر */
+        .gradient-footer {
+            background: linear-gradient(to right, #336699, #6699cc);
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        /* أنماط قسم الحجز */
+        .booking-section {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .booking-section h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+        
+        /* شبكة المرفقات */
+        .attachments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+        
+        /* بطاقة المرفق */
+        .attachment-card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .attachment-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .attachment-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .attachment-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .attachment-content {
+            padding: 1.5rem;
+        }
+        
+        .attachment-content h3 {
+            margin: 0 0 1rem 0;
+            color: #333;
+        }
+        
+        .attachment-content p {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .booking-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .booking-btn:hover {
+            background: #0056b3;
+        }
+        
+        /* تجاوب مع الشاشات الصغيرة */
+        @media screen and (max-width: 768px) {
+            .attachments-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-section {
+                padding: 1rem;
+            }
+        }
+        
+        /* تحديث أنماط أيقونات التواصل الاجتماعي */
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        /* أنماط الحساب */
+        .account-container {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .account-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .account-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .account-btn i {
+            font-size: 20px;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: linear-gradient(45deg, #ff4444, #ff0000);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            transform: translateY(10px);
+        }
+
+        .account-container:hover .logout-btn {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(45deg, #ff0000, #ff4444);
+        }
+
+        /* تحديث أنماط الروابط في القائمة العلوية */
+        .navbar div a {
+            color: white !important;
+            text-decoration: none !important;
+        }
+
+        .navbar div {
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div>الصفحة الرئيسية</div>
+    <div><a href="booking.html">الحجز</a></div>
+    <div><a href="my-bookings.html">حجوزاتي</a></div>
+    <div><a href="profile.html">بياناتي</a></div>
+    <div class="account-container">
+        <div class="account-btn">
+            <i class="fas fa-user-circle"></i>
+            حسابي
+        </div>
+        <div class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            تسجيل الخروج
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="sidebar">
+        <div class="sidebar-box"></div>
+        <div class="sidebar-box"></div>
+        <div class="sidebar-box"></div>
+    </div>
+</div>
+
+<footer class="gradient-footer">
+    <div class="footer-content">
+        <p>جميع الحقوق محفوظة © ٢٠٢٤</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/Imam.Abdulrahman.Bin.Faisal.University" target="_blank">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://x.com/IAU_KSA" target="_blank">
+                <i class="fa-brands fa-x"></i>
+            </a>
+            <a href="https://www.youtube.com/user/dammamuniversity" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.querySelector('.logout-btn').addEventListener('click', function() {
+        window.location.href = 'index.html';
+    });
+</script>
+
+</body>
+</html>

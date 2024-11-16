@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بياناتي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* الأنماط العامة */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f5dc, #f0f0f0);
+        }
+
+        /* أنماط القائمة العلوية */
+        .navbar {
+            background: linear-gradient(45deg, #1a4a73, #336699);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1000;
+        }
+
+        .navbar div {
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+        }
+
+        .navbar div:hover {
+            opacity: 0.8;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        .navbar div a {
+            color: white !important;
+            text-decoration: none !important;
+        }
+
+        /* أنماط المحتوى */
+        .content {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            margin-bottom: 80px;
+        }
+
+        /* تحديث أنماط حاوية البيانات */
+        .profile-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;  /* تقليل التباعد الداخلي */
+            width: 100%;
+            max-width: 450px;  /* تقليل العرض الأقصى */
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;  /* تقليل الهامش السفلي */
+        }
+
+        .profile-header h1 {
+            color: #1a4a73;
+            font-size: 1.6rem;  /* تقليل حجم العنوان */
+            margin: 0;
+        }
+
+        .profile-avatar {
+            width: 100px;  /* تقليل حجم الصورة الرمزية */
+            height: 100px;
+            background: #336699;
+            border-radius: 50%;
+            margin: 0 auto 15px;  /* تقليل الهامش السفلي */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-avatar i {
+            font-size: 50px;  /* تقليل حجم الأيقونة */
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 20px;  /* تقليل المسافة بين الحقول */
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 15px;  /* تقليل التباعد الداخلي للحقول */
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95rem;  /* تقليل حجم الخط */
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            background: #f8f9fa;
+        }
+
+        .form-input:disabled {
+            background: #f8f9fa;
+            cursor: not-allowed;
+        }
+
+        .form-input:focus {
+            border-color: #336699;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(51, 102, 153, 0.1);
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;  /* تقليل الهامش العلوي */
+        }
+
+        .edit-button, .save-button {
+            flex: 1;
+            padding: 10px;  /* تقليل حجم الأزرار */
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;  /* تقليل حجم خط الأزرار */
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .edit-button {
+            background: #336699;
+            color: white;
+        }
+
+        .save-button {
+            background: #4CAF50;
+            color: white;
+            display: none;
+        }
+
+        .edit-button:hover, .save-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* أنماط التذييل */
+        .gradient-footer {
+            background: linear-gradient(to right, #336699, #6699cc);
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        /* أنماط الحساب */
+        .account-container {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .account-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .account-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .account-btn i {
+            font-size: 20px;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: linear-gradient(45deg, #ff4444, #ff0000);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            transform: translateY(10px);
+        }
+
+        .account-container:hover .logout-btn {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(45deg, #ff0000, #ff4444);
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div><a href="home.html">الصفحة الرئيسية</a></div>
+        <div><a href="booking.html">الحجز</a></div>
+        <div><a href="my-bookings.html">حجوزاتي</a></div>
+        <div>بياناتي</div>
+        <div class="account-container">
+            <div class="account-btn">
+                <i class="fas fa-user-circle"></i>
+                حسابي
+            </div>
+            <div class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                تسجيل الخروج
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h1>بياناتي الشخصية</h1>
+            </div>
+            <form id="profileForm">
+                <div class="form-group">
+                    <label>الاسم الثلاثي</label>
+                    <input type="text" class="form-input" value="محمد أحمد علي" disabled
+                           pattern="^[\u0600-\u06FF\s]{5,50}$"
+                           title="يجب أن يحتوي الاسم على أحرف عربية فقط">
+                    <div class="error-message">الرجاء إدخال اسم صحيح باللغة العربية</div>
+                </div>
+                <div class="form-group">
+                    <label>البرد الجامعي</label>
+                    <input type="email" class="form-input" value="example@example.com" disabled
+                           pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                           title="الرجاء إدخال بريد إلكتروني صحيح">
+                    <div class="error-message">الرجاء إدخال بريد إلكتروني صحيح</div>
+                </div>
+                <div class="form-group">
+                    <label>الرقم الجامعي</label>
+                    <input type="text" class="form-input" value="2020123456" disabled
+                           pattern="\d{10}"
+                           title="الرجاء إدخال رقم جامعي صحيح مكون من 10 أرقام">
+                    <div class="error-message">الرقم الجامعي يجب أن يتكون من 10 أرقام</div>
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" class="form-input" value="********" disabled
+                           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                           title="يجب أن تحتوي كلمة المرور على أحرف وأرقام، أن تكون 8 خانات على الأقل">
+                    <div class="error-message">يجب أن تحتوي كلمة المرور على أحرف وأرقام، وأن تكون 8 خانات على الأقل</div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="edit-button" onclick="toggleEdit()">تعديل البيانات</button>
+                    <button type="button" class="save-button" onclick="saveChanges()">حفظ التغييرات</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="gradient-footer">
+        <div class="footer-content">
+            <p>جميع الحقوق محفوظة © ٢٠٢٤</p>
+            <div class="social-links">
+                <a href="https://www.facebook.com/Imam.Abdulrahman.Bin.Faisal.University" target="_blank">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://x.com/IAU_KSA" target="_blank">
+                    <i class="fa-brands fa-x"></i>
+                </a>
+                <a href="https://www.youtube.com/user/dammamuniversity" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleEdit() {
+            const inputs = document.querySelectorAll('.form-input');
+            const editButton = document.querySelector('.edit-button');
+            const saveButton = document.querySelector('.save-button');
+
+            inputs.forEach(input => {
+                input.disabled = !input.disabled;
+            });
+
+            editButton.style.display = 'none';
+            saveButton.style.display = 'block';
+        }
+
+        function saveChanges() {
+            const form = document.getElementById('profileForm');
+            const inputs = form.querySelectorAll('.form-input');
+            let isValid = true;
+
+            // إعادة تعيين رسائل الخطأ
+            document.querySelectorAll('.error-message').forEach(msg => {
+                msg.style.display = 'none';
+            });
+
+            // التحقق من صحة المدخلات
+            inputs.forEach(input => {
+                if (!input.checkValidity()) {
+                    input.nextElementSibling.style.display = 'block';
+                    isValid = false;
+                }
+            });
+
+            if (isValid) {
+                // هنا يمكن إضافة كود حفظ البيانات في قاعدة البيانات
+                alert('تم حفظ التغييرات بنجاح!');
+                
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+
+                document.querySelector('.edit-button').style.display = 'block';
+                document.querySelector('.save-button').style.display = 'none';
+            }
+        }
+
+        // إضافة وظيفة تسجيل الخروج
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html> 
